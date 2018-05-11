@@ -1,0 +1,36 @@
+<html>
+   <head>
+      <title>
+         Calcula la letra del DNI
+      </title>
+      <script language="javascript">
+         // Acción cuando se pulsa el boton          
+            function siClick () {
+                // Tabla de letras definida por el DNI, la defino como constante
+                var letras = ["T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E", "T"];
+                
+                // Cojo el DNI introducido y calculo el indice
+                var dato = document.getElementById('entrada').value;
+                var modulo = dato % 23;
+                    console.log("Modulo: " + modulo);
+                    console.log("Letra: " + letras[modulo]);
+                
+                if (isNaN(modulo)) {
+                    alert ("Debes escribir un numero valido");
+                } 
+                else {
+                    alert("La letra de tu DNI es: " + letras[modulo]);          
+                    // Menos elegante pero se hace en una linea !!
+                    //alert("La letra de tu DNI es: " + letras[dato % 23]);        
+                }    
+                    
+            }
+      </script>
+   </head>
+   <body>
+     Calcula la letra de tu DNI <br><br>
+     
+     <label for="entrada">Numero DNI </label><input id="entrada" value="26022022">
+     <button id="boton" onclick="siClick()">Calcula letra</button>
+   </body>
+</html>
