@@ -1,0 +1,20 @@
+<html>
+   <head>
+      <title>
+         Prueba de nivel Day1
+      </title>
+      <script language="javascript">
+         // Acción cuando se pulsa el boton          
+          function siClick () {
+            //Asigno *.value a dato porque si no, no me funciona mostrar dato.value
+            var dato = document.getElementById('entrada').value;
+            alert("Longitud: " + dato.length);							
+            }
+      </script>
+   </head>
+   <body>
+     Introduce un dato aqui <br>
+     <input id="entrada" value="Kk">
+     <button id="boton" onclick="siClick()">Pulsa aqui</button>
+   </body>
+</html>

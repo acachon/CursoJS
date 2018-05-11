@@ -1,0 +1,44 @@
+<html>
+   <head>
+      <title>
+         Calcula el IMC (Indice de masa corporal)
+      </title>
+      <script language="javascript">
+         // Acción cuando se pulsa el boton          
+            function siClick () {
+                // Calculo el indice IMC
+                var estatura = document.getElementById('estatura').value;
+                var peso = document.getElementById('peso').value;
+                var imc = Math.round(peso / estatura / estatura);
+                    console.log(estatura);
+                    console.log(peso);
+                    console.log(imc);
+
+                // Completo el campo IMC
+                document.getElementById('imc').value=imc; 
+                
+                // Cambio la imagen segun el valor de IMC
+                var ruta="./images/homer.jpg";
+                document.getElementById("imagen").src = ruta;
+
+                //TODO: meter la logica de IMC y elegir una imagen distinta para cada valor
+                if (imc <16) {
+
+                };
+
+            }
+      </script>
+   </head>
+   <body>
+     Sabes como te veo yo? <br><br>
+     
+     <label for="estatura">Estatura(m)  </label><input id="estatura" value="1.80"> <br>
+     <label for="peso">Peso(kg)  </label><input id="peso" value="94"> <br><br>
+     <button id="boton" onclick="siClick()">Calcula IMC</button><br><br>
+     <label for="imc">Tu IMC (Indice de masa corporal es:  </label><input id="imc"> <br><br>
+
+     <br>Y como yo te veo es asi .... <br>
+     <img id="imagen" src="./images/homer.jpg" width="300px" height="200px" alt="Imagen">
+    
+   </body>
+</html>
