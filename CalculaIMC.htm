@@ -23,8 +23,31 @@
 
                 //TODO: meter la logica de IMC y elegir una imagen distinta para cada valor
                 if (imc <16) {
+                    ruta="./images/desnutrido.png";     
+                } 
+                else{
+                    if (imc<18){
+                        ruta="./images/delgado.png";
+                    }
+                    else{
+                        if (imc<25){
+                            ruta="./images/ideal.jpg";
+                        }
+                        else{
+                            if (imc <31){
+                                ruta="./images/sobrepeso.jpg"; 
+                            }
+                            else{
+                                ruta="./images/obeso.png"; 
+                            }
+                        }
+                    }
+                }
+                    console.log(ruta);
 
-                };
+                // Actualizo la imagn con el fichro correcto segun el IMC
+                //var ruta="./images/homer.jpg";
+                document.getElementById("imagen").src = ruta;
 
             }
       </script>
@@ -35,7 +58,7 @@
      <label for="estatura">Estatura(m)  </label><input id="estatura" value="1.80"> <br>
      <label for="peso">Peso(kg)  </label><input id="peso" value="94"> <br><br>
      <button id="boton" onclick="siClick()">Calcula IMC</button><br><br>
-     <label for="imc">Tu IMC (Indice de masa corporal es:  </label><input id="imc"> <br><br>
+     <label for="imc">Tu IMC (Indice de masa corporal) es:  </label><input id="imc"> <br><br>
 
      <br>Y como yo te veo es asi .... <br>
      <img id="imagen" src="./images/homer.jpg" width="300px" height="200px" alt="Imagen">
