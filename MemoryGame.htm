@@ -1,0 +1,106 @@
+<html>
+   <head>
+        <title>
+            Juego - MemoryGame
+        </title>
+        <script language="javascript">
+
+            window.onload = inicia;
+            var imgVisibles = 0;
+           
+            function inicia() {
+                //1. Oculto todas las imagenes
+                ocultaImagenes();   
+                //Creo un listener para cada div
+                var lista_divs = document.querySelectorAll("div");
+                for (var i = 0; i < lista_divs.length; i++) {
+                    lista_divs[i].addEventListener('click', cambiaVisibilidad);
+                }
+            }
+
+            function ocultaImagenes(){
+            // Pongo todas las imagenes en oculto
+                var lista_divs = document.querySelectorAll("div");
+                for (var i = 0; i < lista_divs.length; i++) {
+                    lista_divs[i].firstElementChild.style.visibility="hidden";
+                }                
+            }        
+
+            function cambiaVisibilidad(evento) {
+            //target, es el elemento tocado
+            //currentTarget, es el elemento contenedor
+                var img_tocado = evento.currentTarget.firstElementChild;
+                var estilo = img_tocado.style.visibility;
+                if (estilo == 'visible' || estilo == '') {
+                    img_tocado.style.visibility = 'hidden';
+                    imgVisibles -= 1;
+                }
+                else {
+                    img_tocado.style.visibility = 'visible';
+                    imgVisibles += 1;
+                    //sleep(2000);
+                    compruebaPareja();
+                }
+            }
+
+            function compruebaPareja(){
+                if (imgVisibles==1){
+                    //alert("Encuentra su pareja");
+                    document.getElementById("p1").innerHTML = "Encuentra su pareja!!";
+
+                } else if (imgVisibles==2){
+                    var ganador = sonIguales();
+                    if (ganador){
+                        //alert("Enhorabuena, juega otra vez");
+                        document.getElementById("p1").innerHTML = "Enhorabuena, has encontrado la pareja !!";
+                    } 
+                    else{
+                        document.getElementById("p1").innerHTML = "Mala suerte, intentalo de nuevo !!";
+                        //alert("Mala suerte, juega otra vez");
+                    }
+                    //imgVisibles=0;
+                    //ocultaImagenes();                    
+                } else if (imgVisibles==3){
+                    imgVisibles=0;
+                    ocultaImagenes();
+                }
+            }
+
+            function sonIguales(){
+                var pareja=[];
+                var lista_imgs = document.querySelectorAll("img");
+                for (var i = 0; i < lista_imgs.length; i++) {
+                    if (lista_imgs[i].style.visibility=="visible"){
+                        pareja.push (lista_imgs[i].src);
+                        }   
+                    }
+                if (pareja[1]==pareja[0]){
+                    return(true);
+                    } 
+                else {
+                    return(false);
+                    }                
+                }
+
+            function sleep(miliseconds) {
+                var currentTime = new Date().getTime();
+                while (currentTime + miliseconds >= new Date().getTime()) {
+                    }
+                }
+        </script>
+   </head>
+   <body>
+        Juego - Encuentra las parejas !! <br><br>
+        <p id="p1">Este es el mensaje</p>
+        <TABLE BORDER>
+            <TR>
+                <TD><div><img id="img1" src="./images/obeso.png" alt="Casilla 1" height="100" width="100"/></div></TD> 
+                <TD><div><img id="img3" src="./images/delgado.png" alt="Casilla 2" height="100" width="100"/></div></TD> 
+            </TR>
+            <TR>
+                <TD><div><img id="img3" src="./images/delgado.png" alt="Casilla 3" height="100" width="100"/></div></TD> 
+                <TD><div><img id="img1" src="./images/obeso.png" alt="Casilla 4" height="100" width="100"/></div></TD> 
+            </TR>
+        </TABLE>
+   </body>
+</html>

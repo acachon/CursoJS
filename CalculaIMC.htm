@@ -21,28 +21,19 @@
                 var ruta="./images/homer.jpg";
                 document.getElementById("imagen").src = ruta;
 
-                //TODO: meter la logica de IMC y elegir una imagen distinta para cada valor
+                //CReo una estructura Switch pero sin break, mediante else if
                 if (imc <16) {
                     ruta="./images/desnutrido.png";     
-                } 
-                else{
-                    if (imc<18){
-                        ruta="./images/delgado.png";
-                    }
-                    else{
-                        if (imc<25){
-                            ruta="./images/ideal.jpg";
-                        }
-                        else{
-                            if (imc <31){
-                                ruta="./images/sobrepeso.jpg"; 
-                            }
-                            else{
-                                ruta="./images/obeso.png"; 
-                            }
-                        }
-                    }
+                }else if (imc<18){
+                    ruta="./images/delgado.png";
+                }else if (imc<25){
+                    ruta="./images/ideal.jpg";
+                }else if (imc <31){
+                    ruta="./images/sobrepeso.jpg"; 
+                }else if (imc >31){
+                    ruta="./images/obeso.png"; 
                 }
+                
                     console.log(ruta);
 
                 // Actualizo la imagn con el fichro correcto segun el IMC
