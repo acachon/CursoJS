@@ -5,25 +5,57 @@
         </title>
         <script language="javascript">
 
-            window.onload = inicia;
             var imgVisibles = 0;
-           
+            
+            //Imagenes que reparto por el tablero
+            const imgSrc1="./images/obeso.png"; 
+            const imgSrc2="./images/delgado.png";
+                     
             function inicia() {
-                //1. Oculto todas las imagenes
-                ocultaImagenes();   
-                //Creo un listener para cada div
+                //0. Creo un listener para cada div
                 var lista_divs = document.querySelectorAll("div");
                 for (var i = 0; i < lista_divs.length; i++) {
                     lista_divs[i].addEventListener('click', cambiaVisibilidad);
                 }
+
+                //1. Oculto todas las imagenes
+                ocultaImagenes();
+                //2. Cambio aleatoriamente las imagenes de cada casilla
+                barajaDivs(lista_divs);   
+
             }
 
+            function barajaDivs(Divs){
+            // Asigno una de las dos imagenes aleatoriamente a cada casilla
+                
+                //Genero un nuevo array aleatorio
+                    console.log("2. Barajo las imagenes");
+
+                var nuevaDivs= [];
+                var inputDivs= [];
+                    //Creo un array ya que Divs es una lista                    
+                for (var i=0; i<Divs.length; i++){
+                    inputDivs[i]=Divs[i];
+                }
+                arrayRandom(inputDivs,nuevaDivs);
+                
+                //Asigno una foto alternativamente a cada div
+                var imgSrc="";
+                for (var i=0; i<nuevaDivs.length; i++){
+                    i%2==0 ? imgSrc = imgSrc1 : imgSrc=imgSrc2; // Si es par asigno la imagen1 y si es impar la 2
+                    nuevaDivs[i].firstElementChild.src=imgSrc;
+                        console.log("2. Imagen(" + nuevaDivs[i].firstElementChild.id + ") : " + imgSrc);
+                }
+            } 
+
             function ocultaImagenes(){
-            // Pongo todas las imagenes en oculto
+            // Pongo todas las imagenes en oculto. Todas las cartas boca abajo.
                 var lista_divs = document.querySelectorAll("div");
                 for (var i = 0; i < lista_divs.length; i++) {
                     lista_divs[i].firstElementChild.style.visibility="hidden";
-                }                
+                }
+                document.getElementById("p1").innerHTML="Cartas ocultadas !!" + "<br>";
+                    console.log("1. Oculto las imagenes");
             }        
 
             function cambiaVisibilidad(evento) {
@@ -57,9 +89,7 @@
                     else{
                         document.getElementById("p1").innerHTML = "Mala suerte, intentalo de nuevo !!";
                         //alert("Mala suerte, juega otra vez");
-                    }
-                    //imgVisibles=0;
-                    //ocultaImagenes();                    
+                    }                  
                 } else if (imgVisibles==3){
                     imgVisibles=0;
                     ocultaImagenes();
@@ -72,34 +102,56 @@
                 for (var i = 0; i < lista_imgs.length; i++) {
                     if (lista_imgs[i].style.visibility=="visible"){
                         pareja.push (lista_imgs[i].src);
-                        }   
-                    }
+                    }   
+                }
                 if (pareja[1]==pareja[0]){
                     return(true);
-                    } 
+                } 
                 else {
                     return(false);
-                    }                
+                }                
+            }
+                
+            function arrayRandom (arrayEntrada, arraySalida){
+                // Devuelve arraySalida, con los elementos del arrayEntrada ordenados aleatoriamente
+                // Precond: el array salida debe estar vacio
+                var numAleatorio =0;
+
+                if (arrayEntrada.length==0){
+                    return arraySalida;
                 }
+                //Elijo un elemento aleatorio del arrayEntrada y lo incuyo en el de salida
+                numAleatorio = Math.floor (Math.random () * (arrayEntrada.length));
+                arraySalida.push(arrayEntrada[numAleatorio]);
+        
+                //Copio el ultimo elemento de arrayEntrada en la posicion aleatorio elegida, y lo elimino del final de arrayEntrada
+                arrayEntrada[numAleatorio]=arrayEntrada[arrayEntrada.length-1];
+                arrayEntrada.pop();
+
+                //Vuelvo a llamar a la funcion recursivamente aunque ahora arrayEntrada es un elemento menos y arraySalida uno mas
+                arrayRandom (arrayEntrada, arraySalida);    
+            }
 
             function sleep(miliseconds) {
                 var currentTime = new Date().getTime();
                 while (currentTime + miliseconds >= new Date().getTime()) {
                     }
                 }
+       
         </script>
    </head>
    <body>
-        Juego - Encuentra las parejas !! <br><br>
-        <p id="p1">Este es el mensaje</p>
+        Juego - Encuentra las parejas !! <br>
+        <br><button id="boton" onclick="inicia()">Empieza el juego</button>
+        <br><p id="p1"></p>
         <TABLE BORDER>
             <TR>
                 <TD><div><img id="img1" src="./images/obeso.png" alt="Casilla 1" height="100" width="100"/></div></TD> 
-                <TD><div><img id="img3" src="./images/delgado.png" alt="Casilla 2" height="100" width="100"/></div></TD> 
+                <TD><div><img id="img2" src="./images/delgado.png" alt="Casilla 2" height="100" width="100"/></div></TD> 
             </TR>
             <TR>
                 <TD><div><img id="img3" src="./images/delgado.png" alt="Casilla 3" height="100" width="100"/></div></TD> 
-                <TD><div><img id="img1" src="./images/obeso.png" alt="Casilla 4" height="100" width="100"/></div></TD> 
+                <TD><div><img id="img4" src="./images/obeso.png" alt="Casilla 4" height="100" width="100"/></div></TD> 
             </TR>
         </TABLE>
    </body>

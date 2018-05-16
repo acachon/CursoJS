@@ -1,0 +1,108 @@
+<html>
+   <head>
+        <title>
+            Titulo de la Web
+        </title>
+        <link rel="stylesheet" type="text/css" href="./styles/estilo.css">
+        <script language="javascript">
+            //console.log("Arranca el script");
+            //Declaro las variables globales
+            //var arrayGlobal = [];
+            //var varGlobal = 0;
+
+            //Construyo una fucion que inicializa al pulsar el boton
+            function inicia(){
+                //console.log("Pagina inicializada.");
+                //var arrayLocal = [];
+                //var varLocal = 0;
+            }
+
+            ////////////////////////////////////////////////////////////////////////////////////////
+            // Esta es mi coleccion de funciones reutilizables
+            function iniciaListener() {
+                //Creo un listener para cada div (u otro elemento) de la pagina
+                var lista_divs = document.querySelectorAll("div");
+                for (var i = 0; i < lista_divs.length; i++) {
+                    lista_divs[i].addEventListener('click', elementoOnclick);
+                }
+            }
+
+            function elementoOnclick(evento) {
+                //Cambio un atributo del elemento que me ha generado el evento
+                //Ejemplo: permuta el estado de visibilidad de la imagen que esta dentro del div
+                var elementoTocado = evento.currentTarget.firstElementChild;
+                var atributoEstilo = elementoTocado.style.visibility;
+                if (atributoEstilo == 'visible' || atributoEstilo == '') {
+                    elementoTocado.style.visibility = 'hidden';
+                }
+                else {
+                    elementoTocado.style.visibility = 'visible';
+                }
+            }
+
+            function sleep(miliseconds) {
+                //Duerme todo el sistema (para la actualizacion de document !!)
+                var currentTime = new Date().getTime();
+                while (currentTime + miliseconds >= new Date().getTime()) {
+                    }
+                }
+
+            function arrayShuffle (arrayEntrada, arraySalida){
+                // Devuelve arraySalida, con los elementos del arrayEntrada ordenados aleatoriamente
+                // Precond: el array salida debe estar vacio
+                var numAleatorio =0;
+                if (arrayEntrada.length==0){
+                    return arraySalida;
+                }
+                //Elijo un elemento aleatorio del arrayEntrada y lo incuyo en el de salida
+                numAleatorio = Math.floor (Math.random () * (arrayEntrada.length));
+                arraySalida.push(arrayEntrada[numAleatorio]);
+        
+                //Copio el ultimo elemento de arrayEntrada en la posicion aleatorio elegida, y lo elimino del final de arrayEntrada
+                arrayEntrada[numAleatorio]=arrayEntrada[arrayEntrada.length-1];
+                arrayEntrada.pop();
+
+                //Vuelvo a llamar a la funcion recursivamente aunque ahora arrayEntrada es un elemento menos y arraySalida uno mas
+                arrayShuffle (arrayEntrada, arraySalida);    
+            }
+           
+            ////////////////////////////////////////////////////////////////////////////////////
+
+            ////////////////////////////////////////////////////////////////////////////////////
+            // Esta es mi coleccion de instrucciones que me seran utiles
+            
+            // Escribe en la pagina html en el elemento "p1"
+            // document.getElementById("p1").innerHTML;
+
+            // Metodos utiles de window
+            //window.onload (inicia); //Llama a la funcion "inicia";
+            //console.log ("Mensaje"); //Escribe en la consola un mensaje;
+            //alert ("Pop up"); //Escribe en una ventana emergente;
+            //var entrada = prompt ("Dame un input");
+            //var arrayCadena = "Cadena".split("");
+
+            ////////////////////////////////////////////////////////////////////////////////////
+
+        </script>
+   </head>
+   <body>
+        <p>Reusa Codigo</p>
+        
+        <br><button id="boton" onclick="inicia()">Inicializa</button>
+        
+        <br><p id="p1"></p>
+        
+        <br><label for="entrada">Etiqueta Input </label><input id="input1" value="Por defecto">
+
+        <TABLE BORDER>
+            <TR>
+                <TD><div><img id="img1" src="./images/obeso.png" alt="Casilla 1" height="100" width="100"/></div></TD> 
+                <TD><div></div></TD> 
+            </TR>
+            <TR>
+                <TD><div></div></TD>
+                <TD><div></div></TD>
+            </TR>
+        </TABLE>
+   </body>
+</html>

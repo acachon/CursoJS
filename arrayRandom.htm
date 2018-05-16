@@ -1,0 +1,48 @@
+<html>
+   <head>
+        <title>
+            Barajar arrays
+        </title>
+        <script language="javascript">
+
+            function inicia(){
+                var entrada = ["A", "B", "C", "D", "E"];
+                var salida = [];
+
+                //Presento la serie de entrada
+                document.getElementById("p1").innerHTML +="<br>Entrada: " + entrada;
+                
+                //Caculo y presento la serie de salida desordenada
+                arrayRandom(entrada,salida);
+                document.getElementById("p1").innerHTML +="<br>Salida: " + salida;
+
+            }
+            
+            function arrayRandom (arrayEntrada, arraySalida){
+                // Devuelve arraySalida, con los elementos del arrayEntrada ordenados aleatoriamente
+                // Precond: el array salida debe estar vacio
+                var numAleatorio =0;
+
+                if (arrayEntrada.length==0){
+                    return arraySalida;
+                }
+                //Elijo un elemento aleatorio del arrayEntrada y lo incuyo en el de salida
+                numAleatorio = Math.floor (Math.random () * (arrayEntrada.length));
+                arraySalida.push(arrayEntrada[numAleatorio]);
+        
+                //Copio el ultimo elemento de arrayEntrada en la posicion aleatorio elegida, y lo elimino del final de arrayEntrada
+                arrayEntrada[numAleatorio]=arrayEntrada[arrayEntrada.length-1];
+                arrayEntrada.pop();
+
+                //Vuelvo a llamar a la funcion recursivamente aunque ahora arrayEntrada es un elemento menos y arraySalida uno mas
+                arrayRandom (arrayEntrada, arraySalida);    
+            }
+
+        </script>
+   </head>
+   <body>
+        Desordenar aleatoriamente arrays <br>
+        <br><button id="boton" onclick="inicia()">Reordena</button>
+        <br><p id="p1"></p>
+   </body>
+</html>
