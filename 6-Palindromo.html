@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>
+            Palindromo
+        </title>
+        <script language="javascript">
+            function IsPalindrome() {
+                //Tomo el input del html y valido si es palindromo y presento el resultado en html
+                var inputWord = document.getElementById("palabra").value;
+                var flag=esPalindromo(inputWord);
+                        
+                //Escribo el resultado para saber si lo es o no
+                flag?mensaje="SI":mensaje="NO";
+                document.getElementById("p1").innerHTML="La palabra " + mensaje + " es un palindromo";
+            }
+
+            function esPalindromo (word){
+                // Determina si la palabra es un palindromo de manera recuersiva
+                if (word[0] == word[word.length-1]){
+                    if (word.length>2){
+                        // Llamo recursivamente a la funcion con una cadena sin carcater inicial y final
+                        return esPalindromo (word.slice(1,word.length-1));
+                    } else{
+                        return true;
+                    }
+                }else{
+                    return false;
+                }
+            }
+        </script>
+    </head>
+
+    <body>
+        <label for="palabra">PALABRA</label>
+        <input type="text" id="palabra">
+        <button onclick="IsPalindrome();">Empieza</button>
+        <p id="p1"></p>
+    </body>
+
+</html>
