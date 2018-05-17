@@ -1,10 +1,11 @@
 <html>
+    <!-- Codigo gnerado por acachon (contact@angelcachon.com) -->
     <head>
         <title>
             Palindromo
         </title>
         <script language="javascript">
-            function IsPalindrome() {
+            function miFuncion() {
                 //Tomo el input del html y valido si es palindromo y presento el resultado en html
                 var inputWord = document.getElementById("palabra").value;
                 var flag=esPalindromo(inputWord);
@@ -15,26 +16,24 @@
             }
 
             function esPalindromo (word){
+                var flag=true; 
                 // Determina si la palabra es un palindromo de manera recuersiva
                 if (word[0] == word[word.length-1]){
                     if (word.length>2){
                         // Llamo recursivamente a la funcion con una cadena sin carcater inicial y final
-                        return esPalindromo (word.slice(1,word.length-1));
-                    } else{
-                        return true;
+                        flag=esPalindromo (word.slice(1,word.length-1));
                     }
                 }else{
-                    return false;
+                    flag=false;
                 }
+                return flag;
             }
         </script>
     </head>
-
     <body>
         <label for="palabra">PALABRA</label>
         <input type="text" id="palabra">
-        <button onclick="IsPalindrome();">Empieza</button>
+        <button onclick="miFuncion();">Empieza</button>
         <p id="p1"></p>
     </body>
-
 </html>
