@@ -66,6 +66,33 @@
                 arrayShuffle (arrayEntrada, arraySalida);    
             }
            
+            function creaTabla (inputTabla, filas, columnas, objeto){
+            //CRea una tabla con un numero de filas y columnas debajo del objeto TABLE (inputTabla)
+            //Incluye un div y un objeto dentro de cada casilla (opcional)
+
+                for (var i=0; i<filas; i++){
+                    //Creo una fila
+                    var newRow = document.createElement("TR");
+            
+                    for (var j=0; j<columnas; j++){
+                        // Creo una nueva casilla, una nueva columna
+                        var newCol = document.createElement("TD");
+                        
+                        if (objeto instanceof Object){  //Objeto es un parametro opcional
+                            //Le doy un objecto por defecto dentro de un div
+                            var newDiv=document.createElement("div");   
+                            var cloneObjeto = objeto.cloneNode(true);     //Creo un nuevo objeto identico al pasado (sin id !!)
+                            newDiv.appendChild(cloneObjeto);
+                            newCol.appendChild(newDiv);    
+                        }
+                        //Meto la nueva columna en esta fila
+                        newRow.appendChild(newCol);
+                    }
+                    //Meto la nueva fila, ya con sus columnas, dentro del div
+                    inputTabla.appendChild(newRow);
+                }
+            }
+          
             ////////////////////////////////////////////////////////////////////////////////////
 
             ////////////////////////////////////////////////////////////////////////////////////
@@ -82,6 +109,7 @@
             //var arrayCadena = "Cadena".split("");
             //window.setTimeout(myFunction, 3000); //Llama la funcion myFunction tras 3000 ms
             //window.location.href = "http://www.elmundo.es"; //Redirige a una pagina distinta
+            //var cloneObjeto = objeto.cloneNode(true); //Clona [valor] de un objeto pasado [por referncia]
 
             ////////////////////////////////////////////////////////////////////////////////////
 
