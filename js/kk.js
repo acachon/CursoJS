@@ -1,4 +1,3 @@
-var aux = Math.random;
-console.log(aux);  
-aux = Math.floor(aux);
-console.log(aux);  
+var baseURI = "file:///C:/Users/user/Documents/Formacion/CAS%20Javascript/Git/Curso-Javascript/CursoJS/acachon/9%20-%20showRoom.htm";
+console.log("Cadena: " + baseURI);
+console.log("Indice ultimo: " + baseURI.lastIndexOf("/"));

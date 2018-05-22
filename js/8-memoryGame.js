@@ -2,8 +2,9 @@
 
     // imgVisibles lleva el contador de imagenes destapadas, cartas boca arriba
     var imgVisibles = 0;
-    var miTabla;            //Almacena el objecto tabla donde esta el tablero de juego
+    var miTabla;                //Almacena el objecto tabla donde esta el tablero de juego
     var miObjeto = new Image;   //Creo un objeto imagen por defecto
+    var nuevaPareja = [];       //Declaro un array donde guaradare el par de cartas levantadas
     
     
     //Imagenes que reparto por el tablero
@@ -14,7 +15,7 @@
 
     //Inicializao el objeto por defecto con una de las imagenes
     miObjeto.src = imgSrc1;
-    miObjeto.style.visibility = "visible";
+    miObjeto.style.visibility = "hidden";          //Todas las cartas boca abajo de primeras
 
 // Funciones locales
 
@@ -49,7 +50,7 @@
         arrayRandom(inputDivs,nuevaDivs);
         
         //Asigno una foto alternativamente a cada div 
-        //TODO: meter mas fotos al menos hasta 4 parejas
+
         var imgSrc="";
         for (var i=0; i<nuevaDivs.length; i++){
             //Elijo una carta aleatoria como src de la img de cada casilla cada 2 casilla
@@ -64,13 +65,15 @@
     } 
 
     function ocultaImagenes(){
-    // Pongo todas las imagenes en oculto. Todas las cartas boca abajo.
-        var lista_divs = document.querySelectorAll("div");
-        for (var i = 0; i < lista_divs.length; i++) {
-            lista_divs[i].firstElementChild.style.visibility="hidden";
+    // Pongo las dos imagenes en oculto en mi nuevaPareja, y reinicializo nuevaPareja
+        for (var i=0; i<nuevaPareja.length-1;i++){
+            nuevaPareja[i].style.visibility = "hidden";
         }
-        document.getElementById("p1").innerHTML="Cartas ocultadas !!" + "<br>";
-            console.log("1. Oculto las imagenes");
+        nuevaPareja=[];
+
+        //Muestro un mensaje al jugador para seguir jugando
+        document.getElementById("p1").innerHTML="Busca una pareja !!" + "<br>";
+            console.log("1. Oculto las cartas levantas");
     }        
 
     function cambiaVisibilidad(evento) {
@@ -84,11 +87,12 @@
         if (estilo == 'visible' || estilo == '') {
             img_tocado.style.visibility = 'hidden';
             imgVisibles -= 1;
+            nuevaPareja.pop();          //Almaceno en mi array el elemento tocado
         }
         else {
             img_tocado.style.visibility = 'visible';
             imgVisibles += 1;
-            //sleep(2000);
+            nuevaPareja.push (img_tocado);          //Almaceno en mi array el elemento tocado
             compruebaPareja();
         }
     }
@@ -108,7 +112,9 @@
             var ganador = sonIguales();
             if (ganador){
                 //alert("Enhorabuena, juega otra vez");
-                document.getElementById("p1").innerHTML = "Enhorabuena, has encontrado la pareja !!";
+                document.getElementById("p1").innerHTML = "Enhorabuena, has encontrado una pareja !!";
+                imgVisibles=0;
+                nuevaPareja=[]
             } 
             else{
                 document.getElementById("p1").innerHTML = "Mala suerte, intentalo de nuevo !!";
@@ -124,18 +130,16 @@
     // Determino si las imagenes levantadas, visibles, son iguales
     // Precondicion: solo hay dos imagenes levantadas    
         var pareja=[];
-        var lista_imgs = document.querySelectorAll("img");
+        var flag;
+        /*var lista_imgs = document.querySelectorAll("img");
         for (var i = 0; i < lista_imgs.length; i++) {
             if (lista_imgs[i].style.visibility=="visible"){
                 pareja.push (lista_imgs[i].src);
             }   
-        }
-        if (pareja[1]==pareja[0]){
-            return(true);
-        } 
-        else {
-            return(false);
-        }                
+        }*/
+        pareja=nuevaPareja;
+        pareja[1].src==pareja[0].src ? flag=true : flag=false;
+        return flag;         
     }
         
     function arrayRandom (arrayEntrada, arraySalida){
@@ -167,6 +171,13 @@
     //CRea una tabla con un numero de filas y columnas
     //Incluye un div y un objeto dentro de cada casilla (opcional)
 
+        //Vacio la tabla en caso de que tenga hijos y vacio el array nuevaPareja
+        while (inputTabla.firstElementChild != null){
+            inputTabla.firstElementChild.remove();
+        }
+        nuevaPareja = [];
+        
+        //Creo cada una de las filas y columnas con el objeto por defecto    
         for (var i=0; i<filas; i++){
             //Creo una fila
             var newRow = document.createElement("TR");

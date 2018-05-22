@@ -42,7 +42,7 @@ var arrayGlobal = [];    //Guardo los inputs tambien en este array
         //Elimno el TR
         elementoTocado.remove();
 
-        //Vuelvo a numerar el resto de los TR
+        //Vuelvo a numerar el id para que siga coincidiendo con el indece del array
         for(var i= parseInt(elementoTocado.id);i<arrayGlobal.length;i++){
             arrayGlobal[i].id --;
         }
