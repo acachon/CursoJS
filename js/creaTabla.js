@@ -24,7 +24,7 @@ var arrayGlobal = [];    //Guardo los inputs tambien en este array
         nueva_fila.innerHTML=entrada;
         
         //Incluyo esta nueva fila dentro del div de la tabla
-        var div_tabla = document.getElementById ("tabla1");
+        var div_tabla = document.getElementById ("miTabla");
         div_tabla.appendChild(nueva_fila);
 
     }
