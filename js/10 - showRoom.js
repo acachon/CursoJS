@@ -17,12 +17,12 @@
     function inicia(){
         imagen = document.getElementById("img1");
         imagen.addEventListener("mouseover", mouseEncima);
-        //document.getElementById("img1").addEventListener("mouseout", mouseFuera);     
+        imagen.addEventListener("mouseout", mouseFuera);     
     }
     
 //Funciones locales
 
-    function activaCarrusel (intervalo){
+    function activaCarrusel (){
         //CRea una secuencia para cambiar la imagen de entre las contenidas en la lista
         //Toma el intervalo como input de la casilla input1
         var intervalo = document.getElementById("input1").value;
@@ -58,9 +58,12 @@
     function mouseEncima(){
         //Detengo el carrusel ,si existe, al pasar por encima de la foto
         console.log("Paso el raton por encima de la imagen");
+        if (idCarrusel >0 ) {clearInterval(idCarrusel); };
     }
+
     function mouseFuera(){
         //Activo el carrusel de nuevo, si existia.
         console.log("Dejo de estar con el raton por encima de la imagen");
+        if (idCarrusel >0 ) {activaCarrusel(); };
     }
         

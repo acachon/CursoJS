@@ -93,29 +93,6 @@
                 }
             }
           
-            function walkTree(node) {
-                if (node == null) //Cuando ya no es un objeto 
-                    return;
-                // hacer alguna cosa con el nodo
-                for (var i = 0; i < node.childNodes.length; i++) {
-                    walkTree(node.childNodes[i]);
-                }
-            }
-
-            function misArgumentos(a, b = 1) {
-                //Valor por defecto del parametro b es 1
-                //REviso cuantos argumentos se le pasan y los devuelvo encadenados
-                var result="";
-                var output=[];
-
-                for (var i = 0; i < arguments.length; i++) {
-                    result += arguments[i] + ";";
-                }
-                output[0]=a*b;
-                output[1]=results;
-                return output;
-            }
-
             ////////////////////////////////////////////////////////////////////////////////////
 
             ////////////////////////////////////////////////////////////////////////////////////
@@ -138,33 +115,7 @@
             //elementoTocado.remove();
             
             //idSecuencia = setInterval(myFnction,3000);
-            //clearinterval(idSecuencia);
-
-            //for (var i = 0, j = 10; i <= j && flag==true; i++, j--){}   //Varias condiciones en bucle
-
-            //Returns a new array execution a function on each element 
-            //var a1 = ['a', 'b', 'c'];
-            //var a2 = a1.map(function(item) { return item.toUpperCase(); });
-            //console.log(a2); // logs A,B,C
-
-            //Execution a function for each element 
-            //var a1 = ['a', 'b', 'c'];
-            //a.forEach(function(element) { console.log(element);} );
-            //logs a, b, c
-
-            //CReo una propiedad para todos los objetos o para uno solo
-            //Auto.prototype.color = null;  //Nueva propiedad para todo objeto Auto
-            //auto1.color = "negro";        //Nuevo valor de una propiedad de un objeto concreto auto1
-            
-            //Valor por defecto. Vale name si no es false (ej undefined, etc ...) y si no ""
-            //this.name = name || "default";
-
-            //REcorro elementos de un array
-            //for(let valor of ["a", "b", "c"]){
-            //    console.log(valor)
-            //} // "a", "b", "c"
-
-
+            //clearInterval(idSecuencia);
 
             ////////////////////////////////////////////////////////////////////////////////////
 
@@ -177,23 +128,7 @@
         
         <br><p id="p1"></p>
         
-        <br><label for="entrada">Etiqueta Edad </label><input id="input1" value="Por defecto">
-
-        <form name="formulario1">
-            <p>
-              <label for="lista1">Seleccion multiple de una lista:</label>
-              <br>
-              <select id="lista1" name="Listado" multiple="multiple">
-                <option selected="selected">Por defecto</option>
-                <option>Opcion 1</option>
-                <option>Opcion 2</option>
-                <option>Opcion 3</option>
-                <option>Opcion 4</option>
-                <option>Opcion 5</option>
-              </select>
-            </p>
-            <p><input id="input2" type="button" value="Otro tipo de input" /></p>
-        </form>
+        <br><label for="entrada">Etiqueta Input </label><input id="input1" value="Por defecto">
 
         <TABLE BORDER>
             <TR>
