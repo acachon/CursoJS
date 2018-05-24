@@ -94,6 +94,8 @@
             }
           
             function walkTree(node) {
+            //Recorro los nodos hijos del node raiz que le paso
+
                 if (node == null) //Cuando ya no es un objeto 
                     return;
                 // hacer alguna cosa con el nodo
@@ -115,6 +117,13 @@
                 output[1]=results;
                 return output;
             }
+            
+           
+            Person.prototype.calculaIMCNum = function() {
+                //Agrego un metodos al prototipo de Person
+                //Calcula el IMC numerico con el peso y altura del objeto
+                return this.altura && this.peso ? this.peso/this.altura/this.altura : -1;
+            };
 
             ////////////////////////////////////////////////////////////////////////////////////
 
@@ -164,7 +173,12 @@
             //    console.log(valor)
             //} // "a", "b", "c"
 
+            //window.onload = function(){myFunction(inputA, inputB)};   //Siquiero pasar parametros
+            //window.onload = myFunction;   //sin parametros, para definir la llamada y no para llamar       
+            
+            //setInterval(funtion(){myFunction(inputA)},3000); //De nuevo, para pasar parametros necesito esto de funtion (){MyFunction(inputA)}    
 
+            //var indexRecurrencias = setInterval(myFunction,3000); //Cada 3sg llamo a myFunction 
 
             ////////////////////////////////////////////////////////////////////////////////////
 
