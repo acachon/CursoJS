@@ -1,0 +1,22 @@
+<html>
+   <head>
+        <title>
+            Cifrado simple de un texto 
+        </title>
+        <link rel="stylesheet" type="text/css" href="./styles/estilo.css">
+        <script language="javascript" src="./js/12-cifradoSimple.js">
+        </script>
+   </head>
+   <body>
+    <p>Ejemplo de cifrado Cesar</p>
+
+    <textarea id="texto1" rows="10" cols="50">Escribe algo aqui</textarea>
+    <textarea id="texto2" rows="10" cols="50">Tu text cifrado aparecera aqui</textarea>
+
+    <br><label for="input1">Clave (dejalo vacio para cogerlo del servidor) </label><input id="input1" value="1">
+    <button id="boton1" onclick="cifrar()"> Cifrar </button>
+    
+    <br><p id="mensaje1">No hay ninguna clave del servidor</p>
+    
+   </body>
+</html>

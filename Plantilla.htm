@@ -4,7 +4,7 @@
             Titulo de la Web
         </title>
         <link rel="stylesheet" type="text/css" href="./styles/estilo.css">
-        <script language="javascript" src="./js/plantilla.js">
+        <script language="javascript" src="./js/reusaCodigo.js">
         </script>
    </head>
    <body>
@@ -15,6 +15,19 @@
         <br><p id="p1"></p>
         
         <br><label for="entrada">Etiqueta Input </label><input id="input1" value="Por defecto">
+
+        <form name="formulario1">
+            <p>
+              <label for="lista1">Seleccion multiple de una lista:</label>
+              <br>
+              <select id="lista1" name="Listado" multiple="multiple">
+                <option selected="selected">Por defecto</option>
+                <option>Opcion 1</option>
+                <option>Opcion 2</option>
+              </select>
+            </p>
+            <p><input id="input2" type="button" value="Otro tipo de input" /></p>
+        </form>
 
         <TABLE BORDER>
             <TR>
