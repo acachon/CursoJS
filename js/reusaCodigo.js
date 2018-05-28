@@ -117,6 +117,98 @@
         return this.altura && this.peso ? this.peso/this.altura/this.altura : -1;
     };
 
+    function pedirJSON(dirServicio, miJSON){
+    //Llamo a un servidor para obtener un fichero JSON con la clave
+    //Actualizo el String miJSON con la respuesta del servidor (JSON)  
+            console.log("Lanzo la peticion al servidor de una nueva clave");
+        //const DIR_SERVIDOR = "http://10.1.2.10:8080/appwebprofe/";
+        //const SERVICIO = "ObtenerClave";
+        //const DIR_SERVICIO = DIR_SERVIDOR + SERVICIO;
+        const DIR_SERVICIO = dirServicio;
+        var peticionXHR = new XMLHttpRequest();
+
+        //Programo un evento, "cuando finalice la descarga del request", para lanzar mis acciones    
+        function procesarRespuesta (){
+            //Recojo el valor devuelto por el servidor
+                console.log ("Procesar eventos invocado " + peticionXHR.readyState);
+            if (peticionXHR.readyState==4){
+                // Cuando readyState es 4 ya se ha recibido la respuesta
+                    console.log ("El servidor ha devuelto: " +seedCifrado);
+                miJSON= peticionXHR.responseText;
+            } 
+        }
+
+        //LLamo al servidor de manera asincrona (true)
+        peticionXHR.onreadystatechange = procesarRespuesta; //Configuro un listener asincrono segun el estado de la peticion
+        peticionXHR.open('GET', DIR_SERVICIO, true);        //Configuro el tipo de peticion (GET), servidor+servicio y asincrono(true)    
+        peticionXHR.send(null);                             //Llamo al servidor con el XHR ya configurado
+    }
+
+    function enviarJSON (dirServidor, miObjeto){
+    //Recibe un objeto miObjeto y lo envia como un JSON al servidor
+    //Actuliza la variable statusSalida con el mensaje devuelto
+
+            console.log("Peticion al servidor miObjeto como un JSON");
+        
+        //Parametros para configurar el request XHR    
+        var ficheroJSON = new String;
+        //const DIR_SERVIDOR = "http://10.1.2.10:8080/appwebprofe/";
+        //const SERVICIO = "EnviarMensaje";
+        //const DIR_SERVICIO = DIR_SERVIDOR + SERVICIO;
+        const DIR_SERVICIO = dirServidor;
+        var peticionXHR = new XMLHttpRequest();
+
+        //Genero un String a partir del objeto JSON
+        ficheroJSON = JSON.stringify(miObjeto); 
+
+        //Programo un listener del estado de envio al servidor, "cuando finalice el request", para lanzar mis acciones    
+        function procesarRespuesta (){
+        //Listener para cambio de estado de mi peticon XHR
+                console.log ("Nuevo estado de mi request: " + peticionXHR.readyState);
+            if (peticionXHR.readyState==4){
+                // Cuando readyState es 4 ya se ha recibido la respuesta
+                //Actualizo la variable global de cifrado, y cambio el mensaje de la web
+                    console.log ("Mensaje enviado. Respuesta: " + peticionXHR.responseText);
+                    return peticionXHR.responseText;
+            }
+        }
+
+        //LLamo al servidor de manera asincrona (true) y le envio el fichero JSON 
+        peticionXHR.onreadystatechange = procesarRespuesta;             //Configuro un listener asincrono segun el estado de la peticion
+        peticionXHR.open('POST', DIR_SERVICIO, true);                   //Configuro el tipo de peticion (GET), servidor+servicio y asincrono(true)    
+        peticionXHR.setRequestHeader('Content-Type', 'application/json');   //Configuro el tipo de mensaje a enviar
+        peticionXHR.send(ficheroJSON);                                  //Envio el fichero          
+    }    
+
+    function miAjaxGet(miUrl, miCallback) {
+    //Llamada GET asincrona a un servidor (miUrl) y llamando a miCallback cuando corresponda
+    //Ejemplo de llamada a esta funcion:
+    //miAjaxGet("http://localhostx:3000/imagenes", function(respuesta){
+    //console.log("La respuesta es " + respuesta); });
+    
+        var request = new XMLHttpRequest(); 
+        request.open("GET", miUrl, true);                       //Asincrona = true
+        
+        //Creo el listener que llama a 'miCallback'
+        request.addEventListener("load", function() {
+        if (request.status >= 200 && request.status < 400) {      //Status ha ideo bien
+            miCallback(request.responseText);                       //Llamo a miCallback con la respuesta    
+        } else {
+            miCallback(-1);                                         //Devuelve -1 en caso de error 
+            console.error("miAjaxGET error: " + request.status + "- " + request.statusText); //Error de servidor
+        }
+        });
+
+        //CReo el listener que gestiona los errores 
+        request.addEventListener("error", function(){
+            miCallback(-1);                                         //Devuelve -1 en caso de error 
+            console.error("miAjaxGET error: network error");            //La llamada al servidor a fallado
+        });
+
+        //Finalmente lanzo la peticion al servidor
+        request.send(null);
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////////////
@@ -171,5 +263,19 @@
     //setInterval(funtion(){myFunction(inputA)},3000); //De nuevo, para pasar parametros necesito esto de funtion (){MyFunction(inputA)}    
 
     //var indexRecurrencias = setInterval(myFunction,3000); //Cada 3sg llamo a myFunction 
+
+    //Peticion GET a un servidor con mi funcion personalizada miAjaxGET(miUrl, miCallback)
+    //miAjaxGet("http://localhostx:3000/imagenes", function(respuesta){
+    //console.log("La respuesta es " + respuesta);
+    //});
+
+    //Borro cualquier elemento de la lista preexistente
+    //divPadre.innerHTML="";
+
+    //Do while (con i++ post incremento metido en la condicion)
+    //var salida, i=0;
+    //do {
+    //    salida = miarray[i].value;
+    //} while (miArray[i++].value != "FIN")
 
     ////////////////////////////////////////////////////////////////////////////////////

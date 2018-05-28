@@ -1,0 +1,39 @@
+{
+  "imagenes": [
+    {
+      "albumId": 1,
+      "id": 1,
+      "title": "Accusamus beatae",
+      "url": "http://placehold.it/600/44B525",
+      "thumbnailUrl": "http://placehold.it/150/44B525"
+    },
+    {
+      "albumId": 1,
+      "id": 2,
+      "title": "Reprehenderit est",
+      "url": "http://placehold.it/600/07788A",
+      "thumbnailUrl": "http://placehold.it/150/07788A"
+    },
+    {
+      "albumId": 1,
+      "id": 3,
+      "title": "Iure quia iusto",
+      "url": "http://placehold.it/600/07188A",
+      "thumbnailUrl": "http://placehold.it/150/07188A"
+    },
+    {
+      "albumId": 1,
+      "id": 4,
+      "title": "Culpa odio esse rerum omnis",
+      "url": "http://placehold.it/600/6106C1",
+      "thumbnailUrl": "http://placehold.it/150/6106C1"
+    },
+    {
+      "albumId": 1,
+      "id": 5,
+      "title": "Natus nisi omnis",
+      "url": "http://placehold.it/600/E60026",
+      "thumbnailUrl": "http://placehold.it/150/E60026"
+    }
+  ]
+}

@@ -5,7 +5,7 @@
     var seedCifrado = false;
 
 //LLamo al servidor para pedir la clave de cifrado
-    pedirSeed();
+    pedirGET();
  
 //Proceso los datos enviados al pulsar el boton
     function cifrar(){
@@ -63,7 +63,7 @@
         return arrayCifrado;
     }
 
-    function pedirSeed(){
+    function pedirGET(){
     //Llamo a un servidor para obtener un fichero JSON con la clave  
             console.log("Lanzo la peticion al servidor de una nueva clave");
         var respuesta = "";

@@ -1,13 +1,13 @@
 div {
-    width: 150px;
-    height: 150px;
+    width: 250px;
+    height: 250px;
     cursor: pointer;
     border:2px solid blue;
 }
 
 div img {
-    height: 50%; 
-    width: 50%; 
+    height: 100%; 
+    width: 100%; 
     object-fit: contain;
 }
 img {
