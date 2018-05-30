@@ -278,4 +278,13 @@
     //    salida = miarray[i].value;
     //} while (miArray[i++].value != "FIN")
 
+    //Determino la opcion de un desplegable de lista (<select>)
+    //opcionIndice = miLista.selectedIndex;
+    //opcionValor = miLista.option[miLista.selectedIndex].value;
+    //
+    //O directamente lo meto en la llamada html onchange le paso el indice
+    //<select id="lista1" name="listado" onchange="actualizaLista(this.selectIndex)">
+    
+
+
     ////////////////////////////////////////////////////////////////////////////////////

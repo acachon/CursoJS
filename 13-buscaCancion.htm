@@ -19,7 +19,7 @@
         <form id="form1">
             <p>
               <label for="lista1">Elige una cancion de la lista:</label>
-              <select id="lista1" name="listado" onchange="actualizaOpcion(this.value)" >
+              <select id="lista1" name="listado" onchange="actualizaFicha(this)" >
                 <option>Opcion 1</option>
                 <option>Opcion 2</option>
               </select>
@@ -37,7 +37,9 @@
                         <p id=titulo1> Titulo</p>
                         <p id=autor1> Autor</p>
                         <p id=precio1> Precio</p>
+                        <p id="oculto1" style="display:none"> ID</p>
                         <audio id="audio1" src="" controls></audio>
+                        <button id="boton2" onclick="enviarPedido()">comprar</button>
                     </div>
                 </TD> 
             </TR>
