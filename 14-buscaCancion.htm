@@ -1,0 +1,48 @@
+<html>
+   <head>
+        <title>
+            Busca tu cancion n iTunes
+        </title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="./styles/estilo.css">
+        <script language="javascript" src="./js/14-buscaCancion.js">
+        </script>
+   </head>
+   <body>
+        <p>Busca tu cancion en iTunes</p>
+        
+        <br><label for="input1">Cancion buscada </label><input id="input1" value="lola">
+        <button id="boton1" onclick="buscaListado()">buscar</button>
+        
+        <br><p id="mensaje1"></p>
+        
+        <form id="form1">
+            <p>
+              <label for="lista1">Elige una cancion de la lista:</label>
+              <select id="lista1" name="listado" onchange="actualizaFicha(this)" >
+                <option>Opcion 1</option>
+                <option>Opcion 2</option>
+              </select>
+        </form>
+
+        <TABLE BORDER>
+            <TR>
+                <TD>
+                    <div>
+                        <img id="img1" src="./images/obeso.png" alt="Casilla 1" height="150" width="150"/>
+                    </div>
+                </TD> 
+                <TD>
+                    <div>
+                        <p id=titulo1> Titulo</p>
+                        <p id=autor1> Autor</p>
+                        <p id=precio1> Precio</p>
+                        <p id="oculto1" style="display:none"> ID</p>
+                        <audio id="audio1" src="" controls></audio>
+                        <button id="boton2" onclick="enviarPedido()">comprar</button>
+                    </div>
+                </TD> 
+            </TR>
+        </TABLE>
+   </body>
+</html>

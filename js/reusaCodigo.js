@@ -182,6 +182,7 @@
 
     function miAjaxGet(miUrl, miCallback) {
     //Llamada GET asincrona a un servidor (miUrl) y llamando a miCallback cuando corresponda
+    //La funcion es llamada con un -1 en caso de error
     //Ejemplo de llamada a esta funcion:
     //miAjaxGet("http://localhostx:3000/imagenes", function(respuesta){
     //console.log("La respuesta es " + respuesta); });
@@ -208,6 +209,41 @@
         //Finalmente lanzo la peticion al servidor
         request.send(null);
     }
+
+    function miAjaxPOST(miUrl, miJSON, miCallback) {
+    //Llamada POST asincrona a un servidor (miUrl) y llamando a miCallback pasandole request.resposeText
+    //La funcion miCallback se lama con el parametro responseText devuelto, o -1 si hay error
+    //La funcion es llamada con un -1 en caso de error
+    //Ejemplo de llamada a esta funcion:
+    //miAjaxPost("http://10.1.2.10:8080/appwebprofe/Comprar", miJSON, function(respuesta){
+    //console.log("La respuesta es " + respuesta); });
+    
+        var request = new XMLHttpRequest(); 
+        request.open("POST", miUrl, true);                          //Asincrona = true
+        
+        //Creo el listener que llama a 'miCallback'
+        request.onreadystatechange= function() {
+                console.log("readyState: " + this.readyState)
+            if (this.readyState==4){
+                // Cuando readyState es 4 ya se ha recibido la respuesta por parte del servidor
+                //Actualizo la variable global de cifrado, y cambio el mensaje de la web
+                    console.log ("Mensaje enviado. responseText: " + this.responseText);
+                    console.log ("Mensaje enviado. status: " + this.status);
+                miCallback(this.responseText)
+            }
+        };
+
+        //CReo el listener que gestiona los errores 
+        request.addEventListener("error", function(){
+            miCallback(-1);                                         //Devuelve -1 en caso de error 
+            console.error("miAjaxPOST error: network error");            //La llamada al servidor a fallado
+        });
+
+        //Finalmente lanzo la peticion al servidor
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.send(miJSON);
+    }
+    
 
     ////////////////////////////////////////////////////////////////////////////////////
 
