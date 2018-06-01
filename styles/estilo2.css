@@ -1,0 +1,12 @@
+td {
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+    border:2px solid blue;
+}
+
+td img {
+    height: 100%; 
+    width: 100%; 
+    object-fit: contain;
+}

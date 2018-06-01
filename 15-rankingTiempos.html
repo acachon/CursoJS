@@ -1,0 +1,192 @@
+<html>
+
+<head>
+    <title>
+        WEB CON JS
+    </title>
+    <link rel="stylesheet" type="text/css" href="./styles/estilo2.css">
+    <script src="https://albert-gonzalez.github.io/easytimer.js/dist/easytimer.min.js"></script>
+    <script language="javascript">
+        window.onload = iniciarTablero;
+        var reloj; 
+        var imagen_tocada = false;
+        var primer_img_tocada; var segunda_imagen_tocada;
+        var num_aciertos = 0;//representa el número de aciertos que lleva el usuario
+        const TOTAL_ACIERTOS = 2;//número de aciertos totales para dar por concluido el juego
+        var abierto = true;
+
+        function actualizarReloj()
+        {
+            reloj.addEventListener('secondsUpdated', function (e) {
+                document.getElementById("tiempo").innerHTML = reloj.getTimeValues().toString();
+            });
+        }
+        function iniciarTablero() {
+            console.log("Inicia Tablero . . .");
+            
+            //Asignar los listeners
+            var td_actual;
+            var hijo_img;
+            var lista_td = document.querySelectorAll("td");
+            for (var i = 0; i < lista_td.length; i++) {
+                td_actual = lista_td[i];
+                td_actual.addEventListener('click', tocadoImagen);
+                hijo_img = td_actual.firstElementChild;
+                console.log(hijo_img instanceof Element);
+                hijo_img.style.visibility = 'hidden';
+            }
+            console.log("Fin Inicia Tablero . . .");
+            //Ocultar las imágenes
+            reloj = new Timer();
+            reloj.start();
+            actualizarReloj();
+        }
+
+        function tocadoImagen(evento) {
+
+            console.log("El usuario tocó el td");
+
+            // SI la imagen que ha tocado está visible --> no hago nada
+            //si no, caso general
+            var especial = evento.currentTarget.firstElementChild; //accedo a la imagen tocada
+            if ((especial.style.visibility == 'hidden') && (abierto)) {
+                if (!imagen_tocada) //imagen_tocada es false
+                { //1er intento
+                    //obtengo imagen
+                    console.log("1 er intento");
+                    primer_img_tocada = evento.currentTarget.firstElementChild;
+                    primer_img_tocada.style.visibility = 'visible';
+                    imagen_tocada = true;
+                } else { //2º intento imagen_tocada es true
+                    console.log("2 o intento");
+                    segunda_imagen_tocada = evento.currentTarget.firstElementChild;
+                    segunda_imagen_tocada.style.visibility = 'visible';
+                    imagen_tocada = false;//para volver al primer casos
+                    var nombre_img_1 = primer_img_tocada.src;
+                    var nombre_img_2 = segunda_imagen_tocada.src;
+                    if (nombre_img_1.localeCompare(nombre_img_2) == 0) {
+                        console.log("Acierto");
+                        num_aciertos = num_aciertos + 1;//num_aciertos++
+                        if (num_aciertos == TOTAL_ACIERTOS) {
+                            console.log("Ha ganado");
+                            //alert ("Has ganado socio, ENHORABUENA");
+                            reloj.stop();
+                            subirRecord(); 
+                            //TODO Obtener el tiempo empleado y enviarlo
+                            //location.href = "http://www.cnn.com";
+                            
+                        }
+
+                    } else {
+                        console.log("FALLO, las tapo");
+                        abierto = false;
+                        setTimeout(function(){ voltear(primer_img_tocada, segunda_imagen_tocada) } , 
+                        900);
+                    }
+
+                }
+            }
+        }
+        function voltear(primer_img_tocadal, segunda_imagen_tocadal) {
+            primer_img_tocadal.style.visibility = 'hidden';
+            segunda_imagen_tocadal.style.visibility = 'hidden';
+            abierto = true;
+        }
+
+        function subirRecord() {
+        // Envio el JSON con mi resultado
+        
+        //Compongo mi resultado
+            var miResultado = {
+                nombre:"Angel Cachon",
+                tiempo:  document.getElementById("tiempo").innerHTML 
+            }
+            var miResultadoJSON = JSON.stringify(miResultado);
+        
+        //Llamo al servidor con un POST de mi resultado
+            const servicio = "http://10.1.2.10:8080/appwebprofe/SubirRecord";
+            miAjaxPOST(servicio, miResultadoJSON,rankingResultado);
+
+        }
+
+        function rankingResultado (listadoJSON){
+            //Recibe del servidor el listado y lo ordena y presenta
+            var listadoObjeto = JSON.parse(listadoJSON);
+            var arrayTiempos = listadoObjeto.ranking;
+
+            arrayTiempos.sort(function (a,b){
+                var alpha = [a.tiempo.substr(3, 2), a.tiempo.substr(6, 2)];
+                var beta = [b.tiempo.substr(3, 2), b.tiempo.substr(6, 2)];
+                var salida = 0;
+
+                if (alpha[0]==beta[0]){
+                    alpha[1] >= beta[1] ? salida = 1 : salida = -1; 
+                } else  {
+                    alpha[0] >= beta[0] ? salida = 1 : salida = -1; 
+                }
+            });
+
+            console.log ("El mejor es: " + arrayTiempos[0].nombre );
+
+        }
+
+        function miAjaxPOST(miUrl, miJSON, miCallback) {
+        //Llamada POST asincrona a un servidor (miUrl) y llamando a miCallback pasandole request.resposeText
+        //La funcion miCallback se lama con el parametro responseText devuelto, o -1 si hay error
+        //La funcion es llamada con un -1 en caso de error
+        //Ejemplo de llamada a esta funcion:
+        //miAjaxPost("http://10.1.2.10:8080/appwebprofe/Comprar", miJSON, function(respuesta){
+        //console.log("La respuesta es " + respuesta); });
+        
+            var request = new XMLHttpRequest(); 
+            request.open("POST", miUrl, true);                          //Asincrona = true
+            
+            //Creo el listener que llama a 'miCallback'
+            request.onreadystatechange= function() {
+                    console.log("readyState: " + this.readyState)
+                if (this.readyState==4){
+                    // Cuando readyState es 4 ya se ha recibido la respuesta por parte del servidor
+                    //Actualizo la variable global de cifrado, y cambio el mensaje de la web
+                        console.log ("Mensaje enviado. responseText: " + this.responseText);
+                        console.log ("Mensaje enviado. status: " + this.status);
+                    miCallback(this.responseText)
+                }
+            };
+
+            //CReo el listener que gestiona los errores 
+            request.addEventListener("error", function(){
+                miCallback(-1);                                         //Devuelve -1 en caso de error 
+                console.error("miAjaxPOST error: network error");            //La llamada al servidor a fallado
+            });
+
+            //Finalmente lanzo la peticion al servidor
+            request.setRequestHeader('Content-Type', 'application/json');
+            request.send(miJSON);
+        }
+
+    </script>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>
+                <img src="./images/delgado.jpeg">
+            </td>
+            <td>
+                <img src="./images/pantera.jpg">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="./images/delgado.jpeg">
+            </td>
+            <td>
+                <img src="./images/pantera.jpg">
+            </td>
+        </tr>
+    </table>
+    <div id="tiempo"></div>
+</body>
+
+</html>
