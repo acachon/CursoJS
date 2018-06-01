@@ -111,12 +111,6 @@
         return output;
     }
 
-    Person.prototype.calculaIMCNum = function() {
-    //Agrego un metodos al prototipo de Person
-    //Calcula el IMC numerico con el peso y altura del objeto
-        return this.altura && this.peso ? this.peso/this.altura/this.altura : -1;
-    };
-
     function pedirJSON(dirServicio, miJSON){
     //Llamo a un servidor para obtener un fichero JSON con la clave
     //Actualizo el String miJSON con la respuesta del servidor (JSON)  
@@ -183,6 +177,7 @@
     function miAjaxGet(miUrl, miCallback) {
     //Llamada GET asincrona a un servidor (miUrl) y llamando a miCallback cuando corresponda
     //La funcion es llamada con un -1 en caso de error
+    //La funcion miCallback recibe la respuesta recibida con sus propiedades: this.status, this.responseText, ...
     //Ejemplo de llamada a esta funcion:
     //miAjaxGet("http://localhostx:3000/imagenes", function(respuesta){
     //console.log("La respuesta es " + respuesta); });
@@ -192,18 +187,18 @@
         
         //Creo el listener que llama a 'miCallback'
         request.addEventListener("load", function() {
-        if (request.status >= 200 && request.status < 400) {      //Status ha ideo bien
-            miCallback(request.responseText);                       //Llamo a miCallback con la respuesta    
+        if (request.status >= 200 && request.status < 400) {    //Status ha ido bien
+            miCallback(request);                                //Llamo a miCallback con la respuesta    
         } else {
-            miCallback(-1);                                         //Devuelve -1 en caso de error 
+            miCallback(-1);                                     //Devuelve -1 en caso de error 
             console.error("miAjaxGET error: " + request.status + "- " + request.statusText); //Error de servidor
         }
         });
 
-        //CReo el listener que gestiona los errores 
+        //Creo el listener que gestiona los errores 
         request.addEventListener("error", function(){
             miCallback(-1);                                         //Devuelve -1 en caso de error 
-            console.error("miAjaxGET error: network error");            //La llamada al servidor a fallado
+            console.error("miAjaxGET error: error de conexión");        //La llamada al servidor ha fallado
         });
 
         //Finalmente lanzo la peticion al servidor
@@ -211,36 +206,31 @@
     }
 
     function miAjaxPOST(miUrl, miJSON, miCallback) {
-    //Llamada POST asincrona a un servidor (miUrl) y llamando a miCallback pasandole request.resposeText
-    //La funcion miCallback se lama con el parametro responseText devuelto, o -1 si hay error
+    //Llamada POST asincrona a un servidor (miUrl) y llamando a miCallback pasandole la respuesta al request
+    //La funcion miCallback recibe la respuesta recibida con sus propiedades: this.status, this.responseText, ...    //La funcion es llamada con un -1 en caso de error
     //La funcion es llamada con un -1 en caso de error
     //Ejemplo de llamada a esta funcion:
     //miAjaxPost("http://10.1.2.10:8080/appwebprofe/Comprar", miJSON, function(respuesta){
-    //console.log("La respuesta es " + respuesta); });
+    //console.log("La respuesta es " + respuesta.responseText); });
     
         var request = new XMLHttpRequest(); 
-        request.open("POST", miUrl, true);                          //Asincrona = true
+        request.open("POST", miUrl, true);              //Asincrona = true
         
         //Creo el listener que llama a 'miCallback'
         request.onreadystatechange= function() {
-                console.log("readyState: " + this.readyState)
-            if (this.readyState==4){
-                // Cuando readyState es 4 ya se ha recibido la respuesta por parte del servidor
-                //Actualizo la variable global de cifrado, y cambio el mensaje de la web
-                    console.log ("Mensaje enviado. responseText: " + this.responseText);
-                    console.log ("Mensaje enviado. status: " + this.status);
-                miCallback(this.responseText)
+            if (this.readyState==4){                    // Cuando readyState es 4 ya se ha recibido la respuesta por parte del servidor
+                miCallback(this)
             }
         };
 
         //CReo el listener que gestiona los errores 
         request.addEventListener("error", function(){
             miCallback(-1);                                         //Devuelve -1 en caso de error 
-            console.error("miAjaxPOST error: network error");            //La llamada al servidor a fallado
+            console.error("miAjaxPOST error: error de conexión");   //La llamada al servidor a fallado
         });
 
         //Finalmente lanzo la peticion al servidor
-        request.setRequestHeader('Content-Type', 'application/json');
+        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
         request.send(miJSON);
     }
     
@@ -321,6 +311,10 @@
     //O directamente lo meto en la llamada html onchange le paso el indice
     //<select id="lista1" name="listado" onchange="actualizaLista(this.selectIndex)">
     
-
+    //Person.prototype.calculaIMCNum = function() {
+        //Agrego un metodos al prototipo de Person
+        //Calcula el IMC numerico con el peso y altura del objeto
+            //return this.altura && this.peso ? this.peso/this.altura/this.altura : -1;
+        //};
 
     ////////////////////////////////////////////////////////////////////////////////////

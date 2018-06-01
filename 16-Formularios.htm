@@ -1,0 +1,54 @@
+<html>
+   <head>
+        <title>
+            Formularios - validacion
+        </title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="./styles/estilo.css">
+        <script language="javascript" src="./js/16-Formularios.js">
+        </script>
+   </head>
+   <body>
+        <p>Ejemplo de validación de formularios</p>
+        
+        <form id="formulario" onsubmit="return false">
+            <fieldset>
+                <legend>Mi Formulario</legend>
+                
+                <br><label for="login">Login:</label>
+                <input id="login" type="text" 
+                    title="Debe tener entre 6 y 12 caracteres" 
+                    size="12" minlength="6" maxLength="12"
+                    onchange="validaCampo(this, errorLogin)">
+                <p id="errorLogin" style="display:none; color:#FF0000; font-size:14px">
+                    <br>Formato de login introducido erroneo<br></p>
+
+                <br><label for="email">Email:</label>
+                <input id="email" type="email" 
+                    title="Debe ser un email valido" 
+                    size="64"
+                    onchange="validaCampo(this, errorEmail)">
+                <p id="errorEmail" style="display:none; color:#FF0000; font-size:14px">
+                        <br>Formato de email introducido erroneo<br></p>
+
+                <br><br><label for="password">Contraseña:</label>
+                <input id="password" type="password" 
+                    title="Debe tener entre 6 y 15 caracteres validos" 
+                    size="15" minlength="6" maxLength="15"
+                    onchange="validaCampo(this, errorPassword)">
+                <p id="errorPassword" style="display:none; color:#FF0000; font-size:14px">
+                        <br>Formato de contraseña introducido erroneo<br></p>
+
+                <br><label for="passwordRepeat">Repetir contraseña:</label>
+                <input id="passwordRepeat" type="password" 
+                    title="Debe coincidir con la contraseña introucida" 
+                    size="15" minlength="6" maxLength="15"
+                    onchange="validaCampo(this, errorPasswordRepeat)">
+                <p id="errorPasswordRepeat" style="display:none; color:#FF0000; font-size:14px">
+                        <br>La contraseña no coincide con la anterior<br></p>
+ 
+               <br><br><input id="enviar" type="submit" onclick="enviarFormulario()" value="Enviar">
+            </fieldset>    
+        </form>
+   </body>
+</html>
