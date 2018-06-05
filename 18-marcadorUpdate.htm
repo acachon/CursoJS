@@ -1,0 +1,37 @@
+<html>
+   <head>
+        <title>
+            Marcador actualizado
+        </title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="./styles/estilo2.css">
+        <script language="javascript" src="./js/18-marcadorUpdate.js">
+        </script>
+   </head>
+   <body>
+        <p>Marcador actualizado</p>
+        
+        <div><img id="foto1" src="./images/obeso.png" alt="Imagen del partdo" height="100" width="100"/></div>
+      
+        <TABLE BORDER>
+            <TR><div id="tiempo"><h4>Minuto 83'</h4></div></TR>
+            <TR>
+                <TD><div id="equipo1"></div>Real Madrid </TD> 
+                <TD><div id="marcador1"></div></TD> 
+            </TR>
+            <TR>
+                <TD><div id="equipo1"></div>Barcelona </TD> 
+                <TD><div id="marcador2"></div></TD>
+            </TR>
+        </TABLE>
+
+        <br><button id="boton1" onclick="actualizaMarcador()">Actualiza</button><br>
+
+        <br><label for="comentarios">Comentarios:</label><br>
+        <select id="comentarios" name="Listado" multiple>
+        <option id="min0"><b>Min 0:</b> Arranca el partido ....</option>
+        </select>
+
+        <br><br><button id="boton2" onclick="compartir()">Compartir</button><br>
+   </body>
+</html>
