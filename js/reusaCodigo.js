@@ -317,4 +317,14 @@
             //return this.altura && this.peso ? this.peso/this.altura/this.altura : -1;
         //};
 
+    /*Actualizo el desplegable HTML select y sus option
+    var miSelect = document.getElementById("lista1");
+    miSelect.innerHTML="";                              //Vacio la lista pre-existente
+    for (var i=0; i < miBaseDatos.length;i++ ){
+        var nuevaOpcion= document.createElement("option");
+        nuevaOpcion.innerHTML = miBaseDatos[i].nombre;
+        nuevaOpcion.value = miBaseDatos[i].numero;          //Guardo aqui el numero de departamento que uso para buscar en su BBDD
+        miSelect.appendChild(nuevaOpcion);
+    }*/
+    
     ////////////////////////////////////////////////////////////////////////////////////

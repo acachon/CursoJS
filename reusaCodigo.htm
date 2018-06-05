@@ -24,10 +24,10 @@
             <p>
               <label for="lista1">Seleccion multiple de una lista:</label>
               <br>
-              <select id="lista1" name="Listado" multiple="multiple">
+              <select id="lista1" name="Listado" multiple="multiple" onchange="miFuncion(this.options[this.selectedIndex].value)">
                 <option selected="selected">Por defecto</option>
-                <option>Opcion 1</option>
-                <option>Opcion 2</option>
+                <option value=ID1>Opcion 1</option>
+                <option value=ID2>Opcion 2</option>
                 <option>Opcion 3</option>
                 <option>Opcion 4</option>
                 <option>Opcion 5</option>

@@ -1,0 +1,29 @@
+<html>
+   <head>
+        <title>
+            Titulo de la Web
+        </title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="./styles/estilo.css">
+        <script language="javascript" src="./js/17-formularioSelect.js">
+        </script>
+   </head>
+   <body>
+        <p>Formulario con Select</p>
+        <form id="formulario2" onsubmit="return false">
+                <fieldset>
+                    <legend>Mi Formulario</legend>
+                    
+                    <label for="lista1">Seleccion de una lista:</label>
+                    <select id="lista1" name="Listado" onchange="actualizaEmpleados(this.options[this.selectedIndex].value)">    
+                        <option selected="selected">Por defecto</option>
+                        <option>Opcion 1</option>
+                        <option>Opcion 2</option>
+                    </select>
+                    
+                    <br><textarea id="texto1" rows="10" cols="50" placeholder="Selecciona un departamento"></textarea>        
+            
+                </fieldset>    
+            </form>
+   </body>
+</html>
