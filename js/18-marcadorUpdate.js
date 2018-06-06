@@ -4,8 +4,18 @@
 //Variables y constantes globales
     const miUrl="http://10.1.2.10:8080/Marcador/ActualizarInfoPartido";
     var miMarcador = {};
+    var idSecuencia;
+    const SEGUNDOS=5;
+    
+    window.onload = actualizaAuto;
 
 //Funciones locales
+
+    function actualizaAuto(){
+    //Actualiza periodicamente la pagina
+        idSecuencia = setInterval(actualizaMarcador,SEGUNDOS*1000);
+    }
+
     function actualizaMarcador() {
     //Recupera la informacion actualizada del servidor
             console.log("Solicito informacion actualizada al servidor");
@@ -33,6 +43,9 @@
             var texto;
             var nuevoComentario;
 
+            //Vario los comentarios pre-existentes
+            document.getElementById("comentarios").innerHTML="";
+
             for (var i=0; i<miMarcador.listacomentarios.length; i++){
                 minuto = miMarcador.listacomentarios[i].minuto;
                 texto = miMarcador.listacomentarios[i].comentario;
@@ -47,6 +60,10 @@
 
     function compartir(){
     //Muestra un alert con el mensaje a compartir que se ha seleccionado del listado
+        //Mato el proceso de actualizacion automatica (se reactiva con el refresh de la html) 
+        clearInterval(idSecuencia);
+        
+        //Comparto el comantario
         var indice = document.getElementById("comentarios").selectedIndex;
             console.log("Indice elegido: " + indice);
         if (indice<0){
@@ -55,7 +72,6 @@
             alert("Gracias por compartir \n" + document.getElementById("comentarios").options[indice].value);
         }
     }
-
 
 //Bibliotecas
     function miAjaxGet(miUrl, miCallback) {
